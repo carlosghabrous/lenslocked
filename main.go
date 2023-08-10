@@ -20,18 +20,6 @@ func faqHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "<h1>FAQ page</h1><ul><li>Q: first question</li><li>A: first answer</li></ul>")
 }
 
-// func pathHandler(w http.ResponseWriter, r *http.Request) {
-// 	switch r.URL.Path {
-// 	case "/":
-// 		homeHandler(w, r)
-// 	case "/contact":
-// 		contactHandler(w, r)
-// 	default:
-// 		http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
-// 		// notFoundHandler(w, r)
-// 	}
-// }
-
 type Router struct{}
 
 func (router Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -48,8 +36,6 @@ func (router Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	// http.HandleFunc("/", homeHandler)
-	// http.HandleFunc("/contact", contactHandler)
 	var router Router
 	fmt.Println("Starting the server on :3000...")
 	http.ListenAndServe(":3000", router)
