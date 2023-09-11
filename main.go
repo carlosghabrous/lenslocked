@@ -11,35 +11,35 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 )
 
-func executeTemplate(w http.ResponseWriter, templateName string) {
+func executeTemplate(w http.ResponseWriter, templatePath string) {
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 
-	tpl, err := template.ParseFiles(path.Join("templates", templateName+".gohtml"))
+	tpl, err := template.ParseFiles(templatePath)
 	if err != nil {
 		log.Printf("parsing template: %v", err)
-		http.Error(w, "error parsing the "+templateName+"template", http.StatusInternalServerError)
+		http.Error(w, "error parsing the "+templatePath+" template", http.StatusInternalServerError)
 		return
 	}
 
 	err = tpl.Execute(w, nil)
 	if err != nil {
 		log.Printf("executing template: %v", err)
-		http.Error(w, "error executing the"+templateName+"template", http.StatusInternalServerError)
+		http.Error(w, "error executing the "+templatePath+" template", http.StatusInternalServerError)
 		return
 	}
 
 }
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
-	executeTemplate(w, "home")
+	executeTemplate(w, path.Join("templates", "home.gohtml"))
 }
 
 func contactHandler(w http.ResponseWriter, r *http.Request) {
-	executeTemplate(w, "contact")
+	executeTemplate(w, path.Join("templates", "contact"))
 }
 
 func faqHandler(w http.ResponseWriter, r *http.Request) {
-	executeTemplate(w, "faq")
+	executeTemplate(w, path.Join("templates", "faq"))
 }
 
 func main() {
