@@ -39,8 +39,7 @@ func contactHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func faqHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	fmt.Fprint(w, "<h1>FAQ page</h1><ul><li>Q: first question</li><li>A: first answer</li></ul>")
+	executeTemplate(w, "faq")
 }
 
 func main() {
