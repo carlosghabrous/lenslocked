@@ -35,11 +35,11 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func contactHandler(w http.ResponseWriter, r *http.Request) {
-	executeTemplate(w, path.Join("templates", "contact"))
+	executeTemplate(w, path.Join("templates", "contact.gohtml"))
 }
 
 func faqHandler(w http.ResponseWriter, r *http.Request) {
-	executeTemplate(w, path.Join("templates", "faq"))
+	executeTemplate(w, path.Join("templates", "faq.gohtml"))
 }
 
 func main() {
