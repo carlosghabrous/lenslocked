@@ -1,10 +1,13 @@
-<h1>Hello, {{.Name}} {{.Bio}}</h1>
+<h1>Hello, {{.Name}} of age {{.Age}}, weight {{.Weight}}</h1>
+<h2>These are the lottery numbers I played with: {{.Lottery}}</h2>
+<h2>Phones number I know by heart: {{.Phones}}</h2>
+Visits: {{.Meta.Visits}}
+
+{{ if .Meta.Conditional }} <p>Conditional is true</p>  {{ else }} <p> Conditional is false </p>{{end}}
 
 <script>
 const user = {
     "name": {{.Name}},
-    "bio": {{.Bio}},
-    "age": {{.Age}}}
 };
 console.log(user)
 </script>
