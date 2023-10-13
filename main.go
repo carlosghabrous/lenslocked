@@ -26,7 +26,6 @@ func main() {
 	t = views.Must(views.Parse(path.Join("templates", "faq.gohtml")))
 	router.Get("/faq", controllers.StaticHandler(t))
 
-
 	router.NotFound(func(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
 	})
