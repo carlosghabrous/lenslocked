@@ -2,47 +2,44 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 	"path"
 
+	"github.com/carlosghabrous/lenslocked/controllers"
 	"github.com/carlosghabrous/lenslocked/views"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 )
 
-func executeTemplate(w http.ResponseWriter, templatePath string) {
-	t, err := views.Parse(templatePath)
-	if err != nil {
-		log.Printf("parsing template: %v", err)
-		http.Error(w, "error parsing the template", http.StatusInternalServerError)
-	}
-
-	t.Execute(w, nil)
-}
-
-func homeHandler(w http.ResponseWriter, r *http.Request) {
-	executeTemplate(w, path.Join("templates", "home.gohtml"))
-}
-
-func contactHandler(w http.ResponseWriter, r *http.Request) {
-	executeTemplate(w, path.Join("templates", "contact.gohtml"))
-}
-
-func faqHandler(w http.ResponseWriter, r *http.Request) {
-	executeTemplate(w, path.Join("templates", "faq.gohtml"))
-}
 
 func main() {
+
 	router := chi.NewRouter()
 	router.Use(middleware.Logger)
 
-	router.Get("/", homeHandler)
-	router.Get("/contact", contactHandler)
-	router.Get("/faq", faqHandler)
+	t, err := views.Parse(path.Join("templates", "home.gohtml"))
+	if err != nil {
+		panic(err)
+	}
+	router.Get("/", controllers.StaticHandler(t))
+
+	t, err = views.Parse(path.Join("templates", "contact.gohtml"))
+	if err != nil {
+		panic(err)
+	}
+	router.Get("/contact", controllers.StaticHandler(t))
+
+	t, err = views.Parse(path.Join("templates", "faq.gohtml"))
+	if err != nil {
+		panic(err)
+	}
+	router.Get("/faq", controllers.StaticHandler(t))
+
+
 	router.NotFound(func(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
 	})
+
 	fmt.Println("Starting the server on :3000...")
 	http.ListenAndServe(":3000", router)
 }
