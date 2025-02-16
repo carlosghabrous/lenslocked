@@ -3,6 +3,9 @@ package main
 import (
 	"fmt"
 	"net/http"
+
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
 )
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
@@ -12,28 +15,13 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 
 func contactHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	fmt.Fprint(w, "<h1>Contact Page</h1><p>email me <a href=\"mailto:carlos.ghabrous@gmail.com\">here</a></p>")
-}
-
-type Router struct{}
-
-func (*Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	switch r.URL.Path {
-	case "/":
-		homeHandler(w, r)
-	case "/contact":
-		contactHandler(w, r)
-	default:
-		http.NotFound(w, r)
-
-	}
+	fmt.Fprint(w, "<h1>Contact</h1><p>Contact me <a href=\"mailto:carlos.ghabrous@gmail.com\">here</a></p>")
 }
 func main() {
-	// http.HandleFunc("/", pathHandler)
-
 	fmt.Println("starting server at port :3000")
-	myHandler := &Router{}
-
-	http.ListenAndServe(":3000", myHandler)
+	router := chi.NewRouter()
+	router.Use(middleware.Logger)
+	router.Get("/", homeHandler)
+	router.Get("/contact", contactHandler)
+	http.ListenAndServe(":3000", router)
 }
