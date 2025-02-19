@@ -11,6 +11,13 @@ type Template struct {
 	htmlTemplate *template.Template
 }
 
+func Must(template Template, err error) Template {
+	if err != nil {
+		log.Fatalf("Error parsing template: %v", err)
+	}
+	return template
+}
+
 func Parse(templatePath string) (Template, error) {
 	parsedTemplate, err := template.ParseFiles(templatePath)
 	if err != nil {
