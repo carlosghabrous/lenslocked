@@ -36,7 +36,7 @@ jobs:
   acr:
     name: Build and push image to docker hub
     needs: tag
-    runs-on: ubutnu-latest
+    runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
       - name: Set up Buildx
