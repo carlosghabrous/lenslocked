@@ -22,8 +22,8 @@ jobs:
           DATE="$(date +"%Y.%m.%d")"
           SUFFIX=1
           TAG=$DATE
-          git config user.email "github-automation@mitigasolutions.com"
-          git config user.name "GitHub Automation"
+          git config user.email "carlos.ghabrous@gmail.com  "
+          git config user.name "carlosghabrous"
           git fetch --tags
           until git tag "$TAG" 2> /dev/null
           do
