@@ -30,6 +30,7 @@ jobs:
               TAG="${DATE}.$((++SUFFIX))"
           done
           git remote set-url origin https://x-access-token:${{ secrets.GH_PAT }}@github.com/carlosghabrous/lenslocked.git
+          git push --tags
           echo "TAG=$TAG" >> "$GITHUB_OUTPUT"
 
   acr:
