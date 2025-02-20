@@ -3,9 +3,9 @@ package main
 import (
 	"log"
 	"net/http"
-	"path"
 
 	"github.com/carlosghabrous/lenslocked/controllers"
+	"github.com/carlosghabrous/lenslocked/templates"
 	"github.com/carlosghabrous/lenslocked/views"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -16,13 +16,13 @@ func main() {
 	router := chi.NewRouter()
 	router.Use(middleware.Logger)
 
-	template := views.Must(views.Parse(path.Join("templates", "home.gohtml")))
+	template := views.Must(views.ParseFileSystem(templates.FileSystem, "home.gohtml"))
 	router.Get("/", controllers.StaticHandler(template))
 
-	template = views.Must(views.Parse(path.Join("templates", "contact.gohtml")))
+	template = views.Must(views.ParseFileSystem(templates.FileSystem, "contact.gohtml"))
 	router.Get("/contact", controllers.StaticHandler(template))
 
-	template = views.Must(views.Parse(path.Join("templates", "faq.gohtml")))
+	template = views.Must(views.ParseFileSystem(templates.FileSystem, "faq.gohtml"))
 	router.Get("/faq", controllers.StaticHandler(template))
 
 	http.ListenAndServe(":3000", router)
