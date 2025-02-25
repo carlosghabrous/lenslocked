@@ -23,7 +23,7 @@ func main() {
 	router.Get("/contact", controllers.StaticHandler(template))
 
 	template = views.Must(views.ParseFileSystem(templates.FileSystem, "faq.gohtml"))
-	router.Get("/faq", controllers.StaticHandler(template))
+	router.Get("/faq", controllers.Faq(template))
 
 	http.ListenAndServe(":3000", router)
 }
