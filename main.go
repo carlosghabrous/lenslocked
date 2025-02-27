@@ -16,13 +16,13 @@ func main() {
 	router := chi.NewRouter()
 	router.Use(middleware.Logger)
 
-	template := views.Must(views.ParseFileSystem(templates.FileSystem, "home.gohtml"))
+	template := views.Must(views.ParseFileSystem(templates.FileSystem, "home.gohtml", "tailwind.gohtml"))
 	router.Get("/", controllers.StaticHandler(template))
 
-	template = views.Must(views.ParseFileSystem(templates.FileSystem, "contact.gohtml"))
+	template = views.Must(views.ParseFileSystem(templates.FileSystem, "contact.gohtml", "tailwind.gohtml"))
 	router.Get("/contact", controllers.StaticHandler(template))
 
-	template = views.Must(views.ParseFileSystem(templates.FileSystem, "faq.gohtml"))
+	template = views.Must(views.ParseFileSystem(templates.FileSystem, "faq.gohtml", "tailwind.gohtml"))
 	router.Get("/faq", controllers.Faq(template))
 
 	http.ListenAndServe(":3000", router)
