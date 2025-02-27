@@ -16,7 +16,7 @@ func main() {
 	router := chi.NewRouter()
 	router.Use(middleware.Logger)
 
-	template := views.Must(views.ParseFileSystem(templates.FileSystem, "home.gohtml", "layout-parts.gohtml"))
+	template := views.Must(views.ParseFileSystem(templates.FileSystem, "home.gohtml"))
 	router.Get("/", controllers.StaticHandler(template))
 
 	template = views.Must(views.ParseFileSystem(templates.FileSystem, "contact.gohtml"))
