@@ -1,0 +1,19 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB:  lenslocked
+      POSTGRES_USER: carlos
+      POSTGRES_PASSWORD: ghabrous
+    ports:
+      - "5432:5432"
+
+  adminer:
+    image: adminer
+    restart: always
+    environment:
+      ADMINER_DESIGN: "dracula"
+    ports:
+      - "3333:8080"
