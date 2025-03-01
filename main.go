@@ -25,8 +25,9 @@ func main() {
 	template = views.Must(views.ParseFileSystem(templates.FileSystem, "faq.gohtml", "tailwind.gohtml"))
 	router.Get("/faq", controllers.Faq(template))
 
-	template = views.Must(views.ParseFileSystem(templates.FileSystem, "signup.gohtml", "tailwind.gohtml"))
-	router.Get("/signup", controllers.Faq(template))
+	usersController := controllers.Users{}
+	usersController.Templates.New = views.Must(views.ParseFileSystem(templates.FileSystem, "signup.gohtml", "tailwind.gohtml"))
+	router.Get("/signup", usersController.New)
 
 	http.ListenAndServe(":3000", router)
 }
