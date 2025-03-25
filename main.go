@@ -40,8 +40,9 @@ func main() {
 		UserService: &userService,
 	}
 	usersController.Templates.New = views.Must(views.ParseFileSystem(templates.FileSystem, "signup.gohtml", "tailwind.gohtml"))
+	usersController.Templates.SignIn = views.Must(views.ParseFileSystem(templates.FileSystem, "signin.gohtml", "tailwind.gohtml"))
 	router.Get("/signup", usersController.New)
 	router.Post("/users", usersController.Create)
-
+	router.Get("/signin", usersController.SignIn)
 	http.ListenAndServe(":3000", router)
 }
