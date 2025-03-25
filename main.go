@@ -44,5 +44,6 @@ func main() {
 	router.Get("/signup", usersController.New)
 	router.Post("/users", usersController.Create)
 	router.Get("/signin", usersController.SignIn)
+	router.Post("/signin", usersController.ProcessSignIn)
 	http.ListenAndServe(":3000", router)
 }
